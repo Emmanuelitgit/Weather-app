@@ -1,19 +1,42 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import UpcomingWeather from './src/Screens/UpcomingWeather';
-import CurrentWeather from './src/Screens/CurrentWeather';
-import City from './src/Screens/City';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Feather } from '@expo/vector-icons';
+import { StyleSheet, View } from 'react-native';
 import Tabs from './src/Components/Tabs';
+import { ActivityIndicator } from 'react-native';
+import { useGetWeather } from './src/Hooks/useGetWeather';
 
-const App = () => {
+const App = () => { 
 
-  const Tab = createBottomTabNavigator()
+  const [loading, errorMsg, weather] = useGetWeather()
+
+ console.log(weather)
+  // let text = 'Waiting..';
+  // if (errorMsg) {
+  //   text = errorMsg;
+  // } else if (location) {
+  //   text = JSON.stringify(location);
+  // }
+
+  if(loading){
+    return(
+      <View style={styles.container}>
+        <ActivityIndicator size={'large'} color={'blue'}/>
+      </View>
+    )
+  }
+ if(!loading){
   return (
-      <Tabs/>
-  )
+    <Tabs weather={weather}/>
+)
+ }
 }
+
+const styles = StyleSheet.create({
+  container:{
+    display:'flex',
+    alignItems:'center',
+    justifyContent:'center',
+    padding:20,
+  }
+})
 
 export default App

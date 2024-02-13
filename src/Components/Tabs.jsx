@@ -26,7 +26,7 @@ const Tabs = () => {
         }
       }}
       >
-        <Tab.Screen name={'current'} component={CurrentWeather}
+        <Tab.Screen name={'Current'} component={CurrentWeather}
         options={{
           tabBarIcon:({focused}) =>(
             <Feather 
@@ -36,7 +36,7 @@ const Tabs = () => {
           )
         }}
         />
-        <Tab.Screen name={'upcoming'} component={UpcomingWeather}
+        <Tab.Screen name={'Upcoming'} component={UpcomingWeather}
         options={{
           tabBarIcon:({focused}) =>(
             <Feather 
@@ -46,7 +46,7 @@ const Tabs = () => {
           )
         }}
         />
-        <Tab.Screen name={'city'} component={City}
+        <Tab.Screen name={'City'} component={City}
         options={{
           tabBarIcon:({focused}) =>(
             <Feather 

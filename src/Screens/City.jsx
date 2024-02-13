@@ -19,8 +19,8 @@ const City = () => {
         source={require("../../assets/city-bg.jpg")}
         style={image}
         >
-        <Text style={cityName}>London</Text>
-        <Text style={countryName}>UK</Text>
+        <Text style={cityName}>Ghana</Text>
+        <Text style={countryName}>Accra</Text>
         <View style={populationWrapper}>
         <IconText iconName={'user'} iconColor={'red'} text={'8000'} textStyles={populationText}/>
         </View>
