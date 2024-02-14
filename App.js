@@ -3,18 +3,13 @@ import { StyleSheet, View } from 'react-native';
 import Tabs from './src/Components/Tabs';
 import { ActivityIndicator } from 'react-native';
 import { useGetWeather } from './src/Hooks/useGetWeather';
+import ErrorItem from './src/Components/ErrorItem';
 
 const App = () => { 
 
   const [loading, errorMsg, weather] = useGetWeather()
 
  console.log(weather)
-  // let text = 'Waiting..';
-  // if (errorMsg) {
-  //   text = errorMsg;
-  // } else if (location) {
-  //   text = JSON.stringify(location);
-  // }
 
   if(loading){
     return(
@@ -23,7 +18,14 @@ const App = () => {
       </View>
     )
   }
- if(!loading){
+
+  if(errorMsg){
+    return(
+      <ErrorItem/>
+    )
+  }
+
+ if(!loading && !errorMsg){
   return (
     <Tabs weather={weather}/>
 )

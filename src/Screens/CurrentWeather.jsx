@@ -4,22 +4,30 @@ import React, { useState } from 'react';
 import {Feather} from "@expo/vector-icons";
 import { weatherType } from '../Utilities/WeatherType';
 
-export default function CurrentWeather() {
-  const{container, wrapper, temp, feels, highLow, highLowWrapper, bodyWrapper, description, message} = styles
+export default function CurrentWeather({weatherData}) {
+  const{container, wrapper, tempStyles, feels, highLow, highLowWrapper, bodyWrapper, description, message} = styles
+  const {main:{temp, feels_like, temp_max, temp_min}, weather} = weatherData;
+  const weatherCondition = weather[0]?.main
   return (
-    <SafeAreaView style={wrapper}>
+    <SafeAreaView 
+       style={[
+          wrapper, 
+          {backgroundColor:weatherType[weatherCondition]?.backgroundColor}]}>
       <View style={container}>
-        <Feather name="sun" size={70}/>
-        <Text style={temp}>6</Text>
-        <Text style={feels}>Feels liek 5</Text>
+        <Feather 
+          name={weatherType[weatherCondition]?.icon} 
+          size={70}
+          color={'white'}/>
+        <Text style={tempStyles}>{`${temp}°`}</Text>
+        <Text style={feels}>{`Feels like ${feels_like}°`}</Text>
         <View style={highLowWrapper}>
-          <Text style={highLow}>High: 8</Text>
-          <Text style={highLow}>Low: 6</Text>
+          <Text style={highLow}>{`High ${temp_max}° `}</Text>
+          <Text style={highLow}>{`Low ${temp_min}°`}</Text>
         </View>
       </View>
       <View style={bodyWrapper}>
-        <Text style={description}>Its Sunny</Text>
-        <Text style={message}>{weatherType['ThurnderStorm'].message}</Text>
+        <Text style={description}>{weather[0]?.description}</Text>
+        <Text style={message}>{weatherType[weatherCondition]?.message}</Text>
       </View>
     </SafeAreaView>
   );
@@ -28,7 +36,6 @@ export default function CurrentWeather() {
 const styles = StyleSheet.create({
   wrapper:{
     flex:1,
-    backgroundColor:"pink",
     paddingTop:Platform.OS=="android" ? 0 : 0,
   },
   container:{
@@ -36,7 +43,7 @@ const styles = StyleSheet.create({
     alignItems:"center",
     justifyContent:'center'
   },
-  temp:{
+  tempStyles:{
     color:"black",
     fontSize:48
   },
@@ -58,7 +65,7 @@ const styles = StyleSheet.create({
     marginBottom:40
   },
   description:{
-    fontSize:40
+    fontSize:43
   },
   message:{
     fontSize:25
